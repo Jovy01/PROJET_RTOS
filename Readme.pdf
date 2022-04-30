@@ -1,0 +1,39 @@
+l'objectif de ce projet est de creer un programme Arduino en utilissant 
+free RTOS qui permet la gestion des taches, des queue et de semaphore. 
+
+on veut creer un programme qui effectue les taches suivantes:
+
+tache 1: Récupère une valeur analogique sur l’entrée où est branché
+un potentiomètre puis l’envoie à  à la tâche 3
+
+tache 2: Récupère une valeur numérique qui est la résultante de l'addition
+des deux valeurs des deux entrées numérique 3 et 4 qui sont branchées avec 
+des boutons poussoirs en montage pull down, puis envoie cette valeur numérique
+ à la tâche 3
+
+tache 3: Reçoit les deux valeurs des tâches 1 et 2 puis les mets dans une 
+structure en ajoutant la valeur de la fonction millis() puis l'envoi à la tache 4 
+
+struct valeurCapteurs {
+    int analogique;
+    int numérique;
+    double tempsEnMillisecondes;
+ 
+tache 4:Cette tâche reçoit la valeur de la structure et utilise le port série pour
+l’afficher et ensuite, envoie cette structure à la tâche 5
+
+tache 5: Cette tâche doit transformer la valeur du temps dans la structure en minutes,
+ ensuite elle doit afficher cette nouvelle structure à travers le port série
+
+
+Démarche :
+- on inclus les bibliothèque nécessaire (FreeRTOS, semphr et queue)
+- on initialise les variables globale ainsi que les pin de la carte arduino
+- on déclare le mutex pour la gestion du port série
+- on déclare les queue
+- dans le void setup, on fait la gestion du port série
+- on crée les queue 
+- on crée les taches en donnant à chacune l'ordre de priorité
+et enfin:
+- on créé les fonctions associé à chaque tache
+
